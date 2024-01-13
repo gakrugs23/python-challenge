@@ -23,44 +23,41 @@
 
 # Winner: Diana DeGette
 
-# import the os module
 import os
-
-# import csv file
 import csv
 
-#  open election data
+# Open election data
 with open('election_data.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     votes = list(readCSV)
     total_votes = len(votes) - 1
 
-# create an empty dictionary. Iterate over each row in the votes list. If candidate's name is not already a key in the candidates dictionary, add value of 1
-# If candidate's name is key in the dictionary, we add its value by 1
-# total number of votes each candidate received
-    
+# Create an empty dictionary to store candidate votes
 candidates = {}
 for row in votes[1:]:
     if row[2] not in candidates:
         candidates[row[2]] = 1
     else:
-        candidates[row[2]] +=1
+        candidates[row[2]] += 1
 
-# Calculate the percentage of votes each candidate received. Print candidates name and their percentage of votes (per answer in homeowrk it should be 3 decimal places)
-# print total vote count
-for candidate, vote_count in candidates.items():
-    percentage = (vote_count / total_votes) * 100
-    print(f'{candidate}: {percentage: .3f}% ({vote_count})')
+# Calculate the percentage of votes each candidate received and print the results
+with open('election_results.txt', 'w') as file:
+    for candidate, vote_count in candidates.items():
+        percentage = (vote_count / total_votes) * 100
+        result_line = f'{candidate}: {percentage:.3f}% ({vote_count})\n'
+        print(result_line)
+        file.write(result_line)
 
-# Find winner of the election
-winner = max(candidates, key = candidates.get)
-print(f'winner: {winner}')
+    # Find the winner of the election
+    winner = max(candidates, key=candidates.get)
+    winner_line = f'Winner: {winner}\n'
+    print(winner_line)
+    file.write(winner_line)
 
-# print total number of votes 
-print(f'total votes: {total_votes}')
+    # Print total number of votes
+    total_votes_line = f'Total Votes: {total_votes}\n'
+    print(total_votes_line)
+    file.write(total_votes_line)
 
-# write the results to a text file
-with open('output_results.txt', 'w') as output_file:
-    output_file.write(output_text)
-
-print("results have been written to output_results.txt")
+# Inform the user that the results have been exported to 'election_results.txt'
+print("Election results have been exported to 'election_results.txt'")
