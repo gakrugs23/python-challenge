@@ -58,3 +58,9 @@ print(f'winner: {winner}')
 
 # print total number of votes 
 print(f'total votes: {total_votes}')
+
+# write the results to a text file
+with open('output_results.txt', 'w') as output_file:
+    output_file.write(output_text)
+
+print("results have been written to output_results.txt")
