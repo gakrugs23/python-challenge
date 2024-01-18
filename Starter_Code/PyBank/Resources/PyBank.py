@@ -65,7 +65,8 @@ with open(budget_data_csv, newline="") as csvfile:
             greatest_decrease[1] = profit_loss_change
 
 # calculate the average change in profit/loss over the entire period
-average_change = round(total_profit_loss / total_months, 2)
+average_change = round(total_profit_loss / (total_months - 1), 2) #getting wrong average and can't figure out why???
+
 
 # create or open a text file to write the results
 with open("financial_analysis.txt", "w") as file:
